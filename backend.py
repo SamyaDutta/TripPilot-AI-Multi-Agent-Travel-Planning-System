@@ -43,6 +43,14 @@ def get_database_url():
             "Please add your Render PostgreSQL External Database URL to .env"
         )
 
+    # Render URLs sometimes get saved with sslmode=require appended directly to
+    # the database name. Normalize that before connecting.
+    if "sslmode=" in database_url and "?sslmode=" not in database_url:
+        candidate = database_url.rsplit("sslmode=", 1)[0]
+        if candidate.endswith("/"):
+            candidate = candidate[:-1]
+        database_url = candidate
+
     if "sslmode=" not in database_url:
         separator = "&" if "?" in database_url else "?"
         database_url = f"{database_url}{separator}sslmode=require"
@@ -55,11 +63,19 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 if not GROQ_API_KEY:
     raise ValueError("GROQ_API_KEY is missing. Please add it to your .env file.")
 
+_DEPRECATED_GROQ_MODELS = {
+    "llama-3.3-70b-versatile": "openai/gpt-oss-120b",
+    "llama-3.3-70b-specdec": "openai/gpt-oss-120b",
+}
+
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+GROQ_MODEL = _DEPRECATED_GROQ_MODELS.get(GROQ_MODEL, GROQ_MODEL)
+
 # =========================
-# LLM - original model kept
+# LLM - model is configurable and falls back to a supported Groq model
 # =========================
 llm = ChatGroq(
-    model="openai/gpt-oss-120b",
+    model=GROQ_MODEL,
     api_key=GROQ_API_KEY,
     temperature=0.5,
 )
