@@ -32,10 +32,11 @@ OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 _DEPRECATED_GROQ_MODELS = {
-    "llama-3.3-70b-versatile": "openai/gpt-oss-120b",
-    "llama-3.3-70b-specdec": "openai/gpt-oss-120b",
+    "llama-3.3-70b-versatile": "llama-3.1-8b-instant",
+    "llama-3.3-70b-specdec": "llama-3.1-8b-instant",
+    "openai/gpt-oss-120b": "llama-3.1-8b-instant",
 }
-GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 GROQ_MODEL = _DEPRECATED_GROQ_MODELS.get(GROQ_MODEL, GROQ_MODEL)
 
 WEATHER_SERVER_PATH = BASE_DIR / "custom_weather_mcp_server.py"

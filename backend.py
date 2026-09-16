@@ -64,11 +64,12 @@ if not GROQ_API_KEY:
     raise ValueError("GROQ_API_KEY is missing. Please add it to your .env file.")
 
 _DEPRECATED_GROQ_MODELS = {
-    "llama-3.3-70b-versatile": "openai/gpt-oss-120b",
-    "llama-3.3-70b-specdec": "openai/gpt-oss-120b",
+    "llama-3.3-70b-versatile": "llama-3.1-8b-instant",
+    "llama-3.3-70b-specdec": "llama-3.1-8b-instant",
+    "openai/gpt-oss-120b": "llama-3.1-8b-instant",
 }
 
-GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 GROQ_MODEL = _DEPRECATED_GROQ_MODELS.get(GROQ_MODEL, GROQ_MODEL)
 
 # =========================
