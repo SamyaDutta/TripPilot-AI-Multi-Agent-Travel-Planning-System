@@ -171,6 +171,13 @@ def _empty_constraints() -> dict[str, Any]:
     }
 
 
+def _compact_text(value: str | None, max_chars: int = 1200) -> str:
+    text = value or ""
+    if len(text) <= max_chars:
+        return text
+    return text[:max_chars].rstrip() + "..."
+
+
 # =========================
 # Supervisor Agent + Input Guardrail
 # =========================
@@ -358,15 +365,16 @@ def flight_agent(state: TravelState):
 
         prompt = FLIGHT_AGENT_PROMPT.format(
             query=query,
-            airport_data=str(airports)[:3000],
-            airline_data=str(airlines)[:3000],
+            airport_data=_compact_text(str(airports), 1200),
+            airline_data=_compact_text(str(airlines), 1200),
         )
 
         response = llm.invoke(
             [
                 SystemMessage(content="You are an expert travel flight planner."),
                 HumanMessage(content=prompt),
-            ]
+            ],
+            max_tokens=512,
         )
         flight_data = response.content
     except Exception as exc:
@@ -483,13 +491,13 @@ Trip Constraints:
 {state.get('trip_constraints', {})}
 
 Flight Results:
-{state.get('flight_results', '')}
+{_compact_text(state.get('flight_results', ''), 800)}
 
 Hotel Results:
-{state.get('hotel_results', '')}
+{_compact_text(state.get('hotel_results', ''), 800)}
 
 Weather Results:
-{state.get('weather_results', '')}
+{_compact_text(state.get('weather_results', ''), 800)}
 
 Return:
 1. Estimated cost categories
@@ -504,7 +512,8 @@ If exact live prices are unavailable, clearly label estimates as approximate.
         [
             SystemMessage(content="You are a practical travel budget analyst."),
             HumanMessage(content=prompt),
-        ]
+        ],
+        max_tokens=512,
     )
 
     return {
@@ -528,16 +537,16 @@ Trip Constraints:
 {state.get('trip_constraints', {})}
 
 Flight Results:
-{state.get('flight_results', '')}
+{_compact_text(state.get('flight_results', ''), 800)}
 
 Hotel Results:
-{state.get('hotel_results', '')}
+{_compact_text(state.get('hotel_results', ''), 800)}
 
 Weather Results:
-{state.get('weather_results', '')}
+{_compact_text(state.get('weather_results', ''), 800)}
 
 Budget Results:
-{state.get('budget_results', '')}
+{_compact_text(state.get('budget_results', ''), 800)}
 
 Make the itinerary practical, budget-aware, and easy to follow.
 Create a clear draft that is ready for human review.
@@ -547,7 +556,8 @@ Create a clear draft that is ready for human review.
         [
             SystemMessage(content="You are an expert travel planner."),
             HumanMessage(content=prompt),
-        ]
+        ],
+        max_tokens=512,
     )
 
     approval_request = (
@@ -619,19 +629,19 @@ Supervisor Constraints:
 {state.get('trip_constraints', {})}
 
 Flights:
-{state.get('flight_results', '')}
+{_compact_text(state.get('flight_results', ''), 800)}
 
 Hotels:
-{state.get('hotel_results', '')}
+{_compact_text(state.get('hotel_results', ''), 800)}
 
 Weather:
-{state.get('weather_results', '')}
+{_compact_text(state.get('weather_results', ''), 800)}
 
 Budget Analysis:
-{state.get('budget_results', '')}
+{_compact_text(state.get('budget_results', ''), 800)}
 
 Draft Itinerary:
-{state.get('itinerary', '')}
+{_compact_text(state.get('itinerary', ''), 1200)}
 
 Format the final answer beautifully using these sections:
 1. Trip Summary
@@ -656,7 +666,8 @@ Important:
                 content="You are a professional AI travel booking assistant."
             ),
             HumanMessage(content=final_prompt),
-        ]
+        ],
+        max_tokens=512,
     )
 
     return {
