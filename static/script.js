@@ -11,7 +11,13 @@ const AGENT_LABELS = {
 };
 
 function setPrompt(text) {
-  document.getElementById("userInput").value = text;
+  const input = document.getElementById("userInput");
+  input.value = text;
+  input.focus();
+
+  document.querySelectorAll(".quick-prompts button").forEach((button) => {
+    button.classList.toggle("active", button.textContent.trim() === text.slice(0, button.textContent.trim().length));
+  });
 }
 
 function setLoading(isLoading, mode = "draft") {
@@ -32,6 +38,8 @@ function setLoading(isLoading, mode = "draft") {
     btnText.classList.remove("hidden");
     btnLoader.classList.add("hidden");
   }
+
+  document.body.classList.toggle("is-loading", isLoading);
 }
 
 function showError(message) {
@@ -80,6 +88,7 @@ function showWorkflow(data) {
   }
 
   section.classList.remove("hidden");
+  section.classList.add("section-reveal");
 }
 
 function showResult(answer, threadId, isDraft = false) {
@@ -94,6 +103,7 @@ function showResult(answer, threadId, isDraft = false) {
   threadInfo.textContent = `Thread ID: ${threadId}`;
   resultTitle.textContent = isDraft ? "Draft Travel Plan" : "Your Final AI Travel Plan";
   resultSection.classList.remove("hidden");
+  resultSection.classList.add("section-reveal");
 
   resultSection.scrollIntoView({
     behavior: "smooth",
@@ -108,6 +118,7 @@ function showApproval(data) {
   approvalRequest.textContent = data.approval_request ||
     "Approve the draft or provide feedback before the final plan is generated.";
   section.classList.remove("hidden");
+  section.classList.add("section-reveal");
 }
 
 function hideApproval() {
@@ -296,4 +307,11 @@ document.addEventListener("keydown", function(event) {
   if (event.ctrlKey && event.key === "Enter") {
     sendMessage();
   }
+});
+
+document.querySelectorAll(".quick-prompts button").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".quick-prompts button").forEach((item) => item.classList.remove("active"));
+    button.classList.add("active");
+  });
 });

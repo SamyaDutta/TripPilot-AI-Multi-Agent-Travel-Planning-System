@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TripMate AI</title>
+  <meta name="theme-color" content="#17211f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <title>TripPilot AI</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -16,12 +20,18 @@
   <main class="app-container">
     <section class="hero-section">
       <div class="badge">
-        ✈️ TripPilot AI — Using LangGraph, MCP, Supervisor, Guardrails & HITL
+        <span class="badge-mark">✦</span>
+        TripPilot AI <span class="badge-divider">/</span> intelligent travel studio
       </div>
       <h1>Your journey, mapped in minutes.</h1>
       <p>
         From takeoff to final draft, we handle the flights, hotels, weather, and budget so you can review and roll!
       </p>
+      <div class="hero-meta" aria-label="Trip planning features">
+        <span><strong>01</strong> Tell us the vibe</span>
+        <span><strong>02</strong> Agents do the legwork</span>
+        <span><strong>03</strong> You make the call</span>
+      </div>
     </section>
 
     <section class="planner-card">
@@ -32,7 +42,7 @@
             Example: Plan a complete 7 days Australia trip from India under 5 lakhs.
           </p>
         </div>
-        <div class="status-pill">
+        <div class="status-pill" aria-label="System status: online">
           <span class="status-dot"></span>
           Online
         </div>
@@ -43,23 +53,23 @@
           id="userInput"
           placeholder="Plan a complete 7 days Australia trip including flights, hotels and sightseeing under 5 lakhs..."
         ></textarea>
-        <button id="sendBtn" onclick="sendMessage()">
+        <button id="sendBtn" onclick="sendMessage()" aria-label="Generate a travel plan">
           <span id="btnText">Generate Draft</span>
           <span id="btnLoader" class="loader hidden"></span>
         </button>
       </div>
 
       <div class="quick-prompts">
-        <button onclick="setPrompt('Plan a complete 7 days Australia trip from India including flights, hotels and sightseeing under 5 lakhs.')">
+        <button type="button" onclick="setPrompt('Plan a complete 7 days Australia trip from India including flights, hotels and sightseeing under 5 lakhs.')">
           Australia Trip
         </button>
-        <button onclick="setPrompt('Plan a 5 days Dubai trip from Kolkata with flights, hotels and sightseeing.')">
+        <button type="button" onclick="setPrompt('Plan a 5 days Dubai trip from Kolkata with flights, hotels and sightseeing.')">
           Dubai Trip
         </button>
-        <button onclick="setPrompt('Plan a 7 days Thailand trip from India with budget hotels and sightseeing.')">
+        <button type="button" onclick="setPrompt('Plan a 7 days Thailand trip from India with budget hotels and sightseeing.')">
           Thailand Trip
         </button>
-        <button onclick="setPrompt('Give me all country flight info.')">
+        <button type="button" onclick="setPrompt('Give me all country flight info.')">
           Global Flights
         </button>
       </div>
