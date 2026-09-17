@@ -26,6 +26,13 @@
   --marine-soft: rgba(35, 92, 89, 0.12);
   --rust: #A84A2A;
   --rust-soft: rgba(168, 74, 42, 0.12);
+  --on-marine: #F3EFE4;
+  --on-rust: #FBF7EE;
+  --on-brass: #241A05;
+  --result-bg: #FBF9F3;
+  --result-ink: #1E2A2E;
+  --result-muted: #3B4A4F;
+  --result-line: #E2DACB;
 
   --shadow: 0 24px 60px rgba(22, 35, 43, 0.12);
   --radius-lg: 20px;
@@ -51,12 +58,23 @@
   --marine-soft: rgba(95, 179, 172, 0.14);
   --rust: #E1815B;
   --rust-soft: rgba(225, 129, 91, 0.14);
+  --on-marine: #F3EFE4;
+  --on-rust: #FBF7EE;
+  --on-brass: #241A05;
+  --result-bg: #152630;
+  --result-ink: #F3EFE4;
+  --result-muted: #C9D3D4;
+  --result-line: rgba(243, 239, 228, 0.2);
 
   --shadow: 0 28px 80px rgba(3, 8, 11, 0.45);
 }
 
 html {
-  color-scheme: light dark;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {
@@ -365,7 +383,7 @@ textarea::placeholder {
   border-radius: var(--radius-md);
   padding: 0 22px;
   background: var(--marine);
-  color: #F3EFE4;
+  color: var(--on-marine);
   font-weight: 700;
   font-size: 0.98rem;
   cursor: pointer;
@@ -495,25 +513,25 @@ textarea::placeholder {
 
 .download-btn {
   background: var(--rust);
-  color: #FBF7EE;
+  color: var(--on-rust);
   box-shadow: 0 12px 26px var(--rust-soft);
 }
 
 .download-btn:hover {
   transform: translateY(-1px);
-  background: #93401F;
+  background: var(--rust);
 }
 
 .pdf-content {
-  background: #FBF9F3;
-  color: #1E2A2E;
+  background: var(--result-bg);
+  color: var(--result-ink);
   border-radius: var(--radius-md);
   padding: 26px;
 }
 
 .pdf-title {
   display: none;
-  color: #1E2A2E;
+  color: var(--result-ink);
   font-family: "Instrument Serif", Georgia, serif;
   font-weight: 400;
   font-size: 2rem;
@@ -522,7 +540,7 @@ textarea::placeholder {
 
 .result-box {
   background: transparent;
-  color: #2A383D;
+  color: var(--result-muted);
   border: none;
   padding: 0;
   white-space: normal;
@@ -534,7 +552,7 @@ textarea::placeholder {
 .result-box h3 {
   font-family: "Instrument Serif", Georgia, serif;
   font-weight: 400;
-  color: #16232B;
+  color: var(--result-ink);
   margin-top: 26px;
   margin-bottom: 12px;
   line-height: 1.25;
@@ -548,34 +566,34 @@ textarea::placeholder {
 
 .result-box h1 {
   font-size: 2.1rem;
-  border-bottom: 3px solid #235C59;
+  border-bottom: 3px solid var(--marine);
   padding-bottom: 10px;
 }
 
 .result-box h2 {
   font-size: 1.45rem;
-  border-left: 4px solid #A9761F;
+  border-left: 4px solid var(--brass);
   padding: 10px 0 10px 12px;
-  background: rgba(169, 118, 31, 0.08);
+  background: var(--brass-soft);
   border-radius: 8px;
 }
 
 .result-box h3 {
   font-size: 1.15rem;
-  color: #235C59;
+  color: var(--marine);
 }
 
 .result-box p {
   margin-bottom: 14px;
   line-height: 1.75;
-  color: #3B4A4F;
+  color: var(--result-muted);
   font-family: "Manrope", sans-serif;
 }
 
 .result-box ul,
 .result-box ol {
   margin: 10px 0 18px 24px;
-  color: #3B4A4F;
+  color: var(--result-muted);
 }
 
 .result-box li {
@@ -584,13 +602,13 @@ textarea::placeholder {
 }
 
 .result-box strong {
-  color: #16232B;
+  color: var(--result-ink);
   font-weight: 800;
 }
 
 .result-box hr {
   border: none;
-  border-top: 1px solid #E2DACB;
+  border-top: 1px solid var(--result-line);
   margin: 24px 0;
 }
 
@@ -598,19 +616,19 @@ textarea::placeholder {
   width: 100%;
   border-collapse: collapse;
   margin: 18px 0;
-  color: #3B4A4F;
+  color: var(--result-muted);
 }
 
 .result-box th,
 .result-box td {
-  border: 1px solid #E2DACB;
+  border: 1px solid var(--result-line);
   padding: 10px;
   text-align: left;
 }
 
 .result-box th {
-  background: rgba(35, 92, 89, 0.08);
-  color: #16232B;
+  background: var(--marine-soft);
+  color: var(--result-ink);
   font-weight: 800;
 }
 
@@ -654,7 +672,7 @@ textarea::placeholder {
   border: none;
   border-radius: var(--radius-sm);
   padding: 12px 18px;
-  color: #F3EFE4;
+  color: var(--on-marine);
   font-weight: 700;
   font-family: "Manrope", sans-serif;
   cursor: pointer;
@@ -668,7 +686,7 @@ textarea::placeholder {
 
 .revise-btn {
   background: var(--brass);
-  color: #241A05;
+  color: var(--on-brass);
   box-shadow: 0 12px 26px var(--brass-soft);
 }
 
