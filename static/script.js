@@ -1,3 +1,17 @@
+/* ============================
+   Theme toggle (new — does not touch any travel-planning logic below)
+   ============================ */
+function toggleTheme() {
+  const root = document.documentElement;
+  const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  root.setAttribute("data-theme", next);
+  try {
+    localStorage.setItem("tp_theme", next);
+  } catch (e) {
+    /* localStorage unavailable — theme just won't persist across reloads */
+  }
+}
+
 let currentThreadId = localStorage.getItem("travel_thread_id") || null;
 let latestAnswerMarkdown = "";
 let waitingForApproval = false;

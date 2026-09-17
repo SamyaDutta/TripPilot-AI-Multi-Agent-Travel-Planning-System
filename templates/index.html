@@ -3,12 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#17211f">
+  <meta name="theme-color" content="#0E1A22" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#EFEAE0" media="(prefers-color-scheme: light)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <title>TripPilot AI</title>
   <link rel="stylesheet" href="/static/style.css">
+  <script>
+    /* Set theme before first paint to avoid a flash of the wrong palette. */
+    (function () {
+      try {
+        var stored = localStorage.getItem("tp_theme");
+        var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
 </head>
 <body>
   <div class="page-bg">
@@ -18,12 +31,28 @@
   </div>
 
   <main class="app-container">
+
+    <div class="topbar">
+      <span class="wordmark">TripPilot<span class="wordmark-dot">·</span>AI</span>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" onclick="toggleTheme()">
+        <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2.5v2.5M12 19v2.5M4.5 12H2M22 12h-2.5M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"></path></svg>
+        <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"></path></svg>
+      </button>
+    </div>
+
     <section class="hero-section">
+      <svg class="route-line" viewBox="0 0 900 220" preserveAspectRatio="none" aria-hidden="true">
+        <path class="route-path" d="M40,170 C 220,10 340,210 470,90 S 760,10 860,60" fill="none" stroke-width="1.5" stroke-dasharray="1 9" stroke-linecap="round"></path>
+        <circle class="route-node" cx="40" cy="170" r="4"></circle>
+        <circle class="route-node" cx="470" cy="90" r="4"></circle>
+        <circle class="route-node route-node-end" cx="860" cy="60" r="5"></circle>
+      </svg>
+
       <div class="badge">
         <span class="badge-mark">✦</span>
         TripPilot AI <span class="badge-divider">/</span> intelligent travel studio
       </div>
-      <h1>Your journey, mapped in minutes.</h1>
+      <h1>Your journey, mapped<br><em>in minutes.</em></h1>
       <p>
         From takeoff to final draft, we handle the flights, hotels, weather, and budget so you can review and roll!
       </p>
@@ -135,7 +164,7 @@
   </main>
 
   <footer>
-    Built with FastAPI, LangGraph, Groq, PostgreSQL, Tavily, AviationStack and MCP
+    Built by Samya Dutta
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
